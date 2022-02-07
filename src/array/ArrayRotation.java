@@ -2,6 +2,8 @@ package array;
 
 public class ArrayRotation {
 
+	
+	//Write a function rotate(ar[], d, n) that rotates arr[] of size n by d elements. 
 	private static void rotate(int[] arr, int rotatingIndex, int arraySize) {
 		if (rotatingIndex >= arraySize)
 			System.out.println("Rotating Index must be less than to Array Size");

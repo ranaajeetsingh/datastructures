@@ -33,4 +33,9 @@ var_name[index];
 
 If we try to access elements outside the array size JVM throws ArrayIndexOutOfBoundsException
 
-In Java array can be multidimensional.
+Types of Java Array
+- Single dimensional arrays: type[] var_name = new type[size];
+- Multidimensional arrays: type\[]\[] var_name = new type\[size][size];
+- Anonymous arrays: new type{e1,e2,e3};
+
+The main objective of anonymous arrays are just for instant usage.

@@ -33,63 +33,49 @@ public class LinkedList {
 		second.next = third;
 
 		printList(list);
-//		Node newStart = new Node(4);
-//		addNodeAtStart(newStart, list);
-		
+
+		//Adding node at start
 		list.push(4);
-		
+
 		System.out.println("After adding a node at start");
 		printList(list);
-		
-//		Node newEnd = new Node(5);
-//		addNodeAtEnd(newEnd, list);
+
+		// adding node at end
 		list.append(5);
-		
+
 		System.out.println("After adding a node at end");
 		printList(list);
-		
-//		Node newRandom = new Node(6);
-//		addNodeAtRandomPosition(newRandom,third, list);
-		
+
+		// adding node after node
 		list.insertAfter(second, 6);
-		
+
 		System.out.println("After adding a after specified node");
+		printList(list);
+
+		// removing node by data
+		list.remove(5);
+		
+		System.out.println("After delete element with data");
+		printList(list);
+		
+		//removing node by position
+		list.delete(3);
+		System.out.println("After deleting element form position");
 		printList(list);
 	}
 
 	// Printing linked list, initial parameters self node hashcode to verify linking
 	// between previous and next node
 	private static void printList(LinkedList list) {
-		// [1,hash],[hash,2,hash],[hash,3,null]
-//		Node n = head;
-//        while (n != null) {
-//            System.out.print(n.data + " ");
-//            n = n.next;
-//        }
-
 		Node n = list.head;
-
 		do {
 			System.out.println(n.hashCode() + "," + n.data + "," + (n.next != null ? n.next.hashCode() : "null"));
 			n = n.next;
 		} while (n != null);
 
-//		StringBuilder str = new StringBuilder("[").append(list.head.data).append(",").append(list.head.next.hashCode())
-//				.append("],");
-//		str.append(("[")).append(list.head.next.hashCode()).append(",").append(list.head.next.data).append(",")
-//				.append(list.head.next.next.hashCode()).append("],");
-//		str.append(("[")).append(list.head.next.next.hashCode()).append(",").append(list.head.next.next.data)
-//				.append(",").append(list.head.next.next.next).append("],");
-//		System.out.println(str.toString());
 	}
 
 	// Add node at start of the list
-	private static void addNodeAtStart(Node node, LinkedList list) {
-		Node temp = list.head;
-		node.next = temp;
-		list.head = node;
-	}
-	
 	private void push(int data) {
 		Node n = new Node(data);
 		n.next = head;
@@ -97,17 +83,9 @@ public class LinkedList {
 	}
 
 	// Add node at end of the list
-	private static void addNodeAtEnd(Node node, LinkedList list) {
-		Node temp = list.head;
-		while (temp.next != null) {
-			temp = temp.next;
-		}
-		temp.next = node;
-	}
-	
 	private void append(int data) {
 		Node n = new Node(data);
-		if( head == null)
+		if (head == null)
 			head = n;
 		else {
 			Node temp = head;
@@ -119,18 +97,66 @@ public class LinkedList {
 	}
 
 	// Add node after a node of the list
-	private static void addNodeAtRandomPosition(Node targetNode, Node node, LinkedList list) {
-		Node n = list.head;
-		while (n != node) {
-			n = n.next;
-		}
-		targetNode.next = n.next;
-		node.next = targetNode;
-	}
-	
 	private void insertAfter(Node prevNode, int data) {
 		Node n = new Node(data);
 		n.next = prevNode.next;
 		prevNode.next = n;
+	}
+
+	/*
+	 * Iterative Method: To delete a node from the linked list, we need to do the
+	 * following steps. 1) Find the previous node of the node to be deleted. 2)
+	 * Change the next of the previous node. 3) Free memory for the node to be
+	 * deleted.
+	 */
+	private void remove(int data) {
+		Node prevNode = head;
+		Node targetNode = null;
+
+		if (null == prevNode)
+			return;
+		if (prevNode.data == data) {
+			prevNode = null;
+			return;
+		}
+		while (prevNode != null) {
+			if (prevNode.next != null && prevNode.next.data == data) {
+				targetNode = prevNode.next;
+				prevNode.next = targetNode.next;
+				targetNode = null;
+				break;
+			} else {
+				//System.out.println("Searching For: " + data + " But not found moving ahead");
+				prevNode = prevNode.next;
+			}
+		}
+	}
+
+	// delete a linked list node at the given position.
+	// Input: position = 1, Linked List = 8->2->3->1->7
+	// Output: Linked List = 8->3->1->7
+	//
+	// Input: position = 0, Linked List = 8->2->3->1->7
+	// Output: Linked List = 2->3->1->7
+	private void delete(int position) {
+		Node prevNode = head;
+		Node targetNode = null;
+		if (null == prevNode)
+			return;
+		int i = 0;
+		while (prevNode != null) {
+			if (i == 0 && i == position) {
+				head = head.next;
+				break;
+			} else if (i == position - 1) {
+				targetNode = prevNode.next;
+				prevNode.next = targetNode.next;
+				targetNode = null;
+				break;
+			} else {
+				prevNode = prevNode.next;
+			}
+			i++;
+		}
 	}
 }

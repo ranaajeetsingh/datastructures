@@ -62,6 +62,10 @@ public class LinkedList {
 		list.delete(3);
 		System.out.println("After deleting element form position");
 		printList(list);
+		
+		System.out.println("Linked list size: " + list.size());
+		
+		System.out.println("Linked list size: " + list.getSize(list.head));
 	}
 
 	// Printing linked list, initial parameters self node hashcode to verify linking
@@ -76,14 +80,14 @@ public class LinkedList {
 	}
 
 	// Add node at start of the list
-	private void push(int data) {
+	public void push(int data) {
 		Node n = new Node(data);
 		n.next = head;
 		head = n;
 	}
 
 	// Add node at end of the list
-	private void append(int data) {
+	public void append(int data) {
 		Node n = new Node(data);
 		if (head == null)
 			head = n;
@@ -158,5 +162,24 @@ public class LinkedList {
 			}
 			i++;
 		}
+	}
+	
+	// Get size by iteration
+	public int size() {
+		int size = 0;
+		Node n = head;
+		while(n != null) {
+			size++;
+			n = n.next;		}
+		
+		return size;
+	}
+	
+	// Get size by recursion
+	public int getSize(Node head) {
+		if( head == null)
+			return 0;
+		else
+			return 1 + getSize(head.next);
 	}
 }
